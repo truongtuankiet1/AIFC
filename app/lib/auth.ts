@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { prisma } from './db';
 import { z } from 'zod';
 
@@ -10,6 +10,7 @@ const SignInSchema = z.object({
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       async authorize(credentials) {
